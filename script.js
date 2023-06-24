@@ -115,7 +115,7 @@ var btnNext=btnele("button","type","button","btn","btn-outline-primary","id","bt
 
     let prebtnAdd=document.getElementById("btn-pre");
     prebtnAdd.addEventListener("click", () =>{
-      if(initialValue >= 0){
+      if(initialValue > 0){
         initialValue=initialValue-10;
         tableappendValue(initialValue);
        }
