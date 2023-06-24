@@ -7,17 +7,6 @@ heading.innerHTML = "Pagination Task";
 let contentDiv= document.createElement("div");
 contentDiv.setAttribute("id", "buttons");
 contentDiv.setAttribute("class", "d-flex justify-content-center");
-// // var pagination=ele("div" , "class", "pagi");
-// var checkdiv=document.createElement("div");
-// checkdiv.setAttribute("class", "checkList");
-// // checkdiv.style.marginTop="450px";
-// // checkdiv.style.marginRight="250px"
-// // checkdiv.style.marginLeft="350px";
-// checkdiv.style.textAlign="justify-content-center";
-// checkdiv.classList.add("pagination","justify-content-center")
-// var checkdiv=ele("div", "class", "checkList");
-// // checkdiv.style.marginTop("150px")
-// checkdiv.classList.add("d-flex" ,"justify-content-center");
 
 
 function ele(tagname, attname, attvalue) {
@@ -98,6 +87,8 @@ var btnNext=btnele("button","type","button","btn","btn-outline-primary","id","bt
     return button;
   }
 
+  tableData();
+
  async function tableData(){
   let url= await fetch("https://raw.githubusercontent.com/Rajavasanthan/jsondata/master/pagenation.json");
   let data=await url.json();
@@ -109,7 +100,7 @@ var btnNext=btnele("button","type","button","btn","btn-outline-primary","id","bt
   try{
      for(let i=0; i<100;i++){
       let namelist=data[i].name;
-      console.log(namelist);
+      // console.log(namelist);
       let emaillist=data[i].email;
       // console.log(emaillist);
       let idlist=data[i].id;
@@ -120,73 +111,95 @@ var btnNext=btnele("button","type","button","btn","btn-outline-primary","id","bt
          }
     let initialValue=0;
 
-    let prebtn_add=document.getElementById("btn-pre");
-    prebtn_add.addEventListener("click", () =>{
-      if(initialValue>0){
-        console.log(initialValue);
+    let prebtnAdd=document.getElementById("btn-pre");
+    prebtnAdd.addEventListener("click", () =>{
+      if(initialValue >= 0 && initialValue <=9){
+        // initialValue=initialValue-10;
+        tableappendValue(initialValue);
+       } else if(initialValue >9){
+        initialValue=initialValue-10;
+        tableappendValue(initialValue);
        }
        else{
         alert("Already you are in 1st page");
       }
     });
+    let btnLast=document.getElementById("btn-next");
+    btnLast.addEventListener("click",() =>{
+     if(initialValue <90 && initialValue>=0){
+        initialValue = initialValue + 10;
+        tableappendValue(initialValue);
+      } else {
+        alert("You are already at the Last page!");
+      }
+     
+    });
 
     let btn1Add=document.getElementById("btn-1");
     btn1Add.addEventListener("click", () =>{
       initialValue=0;
+      tableappendValue(initialValue);
     });
 
     let btn2Add=document.getElementById("btn-2");
     btn2Add.addEventListener("click", () =>{
       initialValue=10;
+      tableappendValue(initialValue);
     });
 
     let btn3Add=document.getElementById("btn-3");
     btn3Add.addEventListener("click", () =>{
       initialValue=20;
+      tableappendValue(initialValue);
     });
 
     let btn4Add=document.getElementById("btn-4");
     btn4Add.addEventListener("click", () =>{
       initialValue=30;
+      tableappendValue(initialValue);
+      
     });
 
     let btn5Add=document.getElementById("btn-5");
     btn5Add.addEventListener("click", () =>{
       initialValue=40;
+      tableappendValue(initialValue);
     });
 
     let btn6Add=document.getElementById("btn-6");
     btn6Add.addEventListener("click", () =>{
       initialValue=50;
+      tableappendValue(initialValue);
     });
 
     let btn7Add=document.getElementById("btn-7");
     btn7Add.addEventListener("click", () =>{
       initialValue=60;
+      tableappendValue(initialValue);
     });
 
     let btn8Add=document.getElementById("btn-8");
     btn8Add.addEventListener("click", () =>{
       initialValue=70;
+      tableappendValue(initialValue);
     });
     let btn9Add=document.getElementById("btn-9");
     btn9Add.addEventListener("click", () =>{
       initialValue=80;
+      tableappendValue(initialValue);
     });
     let btn10Add=document.getElementById("btn-10");
     btn10Add.addEventListener("click", () =>{
       initialValue=90;
+      tableappendValue(initialValue);
     });
 
-    let btnLast=document.getElementById("btn-next");
-    btnLast.addEventListener("click",() =>{
-      initialValue=90;
-    });
+   
     function tableappendValue(NumofItems){
          let tableBody=document.getElementById("tBody");
          tableBody.innerHTML="";
          
-         for(let i=0; i<=NumofItems+10; i++){
+         for(let i=NumofItems; i<=NumofItems+9; i++){
           eventButtonFirst(`${id[i]}`, `${name[i]}`, `${email[i]}`);
 
         function eventButtonFirst(idlist, namelist, emaillist) {
@@ -210,10 +223,10 @@ var btnNext=btnele("button","type","button","btn","btn-outline-primary","id","bt
   }
  }
 
-tableData();
+
   var tableDiv=document.createElement("div");
-  tableDiv.setAttribute("class", "table1");
-  tableDiv.style.textAlign="center";
+  tableDiv.setAttribute("class", "table-responsive");
+  // tableDiv.style.textAlign="center";
   // tableDiv.style.marginTop="70px";
   // tableDiv.style.marginLeft="400px";
   
@@ -263,10 +276,6 @@ next.append(btnNext);
 ul.append(pre,li1,li2,li3,li4,li5,li6,li7,li8,li9,next);
 navbar.append(ul);
 contentDiv.append(navbar);
-tableTr.append(tableTh1,tableTh2 ,tableTh3);
-tableHead.append(tableTr);
-tableTag.append(tableHead, tableBody);
-tableDiv.append(tableTag);
 maindiv.append(heading,tableDiv,contentDiv);
 container.append(maindiv);
 document.body.append(container);
@@ -275,4 +284,4 @@ document.body.append(container);
 tableTr.append(tableTh1,tableTh2 ,tableTh3);
 tableHead.append(tableTr);
 tableTag.append(tableHead, tableBody);
-
+tableDiv.append(tableTag);
